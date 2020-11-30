@@ -55,30 +55,36 @@ public class TimeUtilProTest {
         LocalDate expResult = LocalDate.of(2004, 02, 16);
         LocalDate result = TimeUtilPro.intToLocalDate(date);
         assertEquals(expResult, result);
+        System.out.println("done");
 
         //monat falsch
         date = 20042016;
         expResult = LocalDate.of(2004, 20, 16);
         result = TimeUtilPro.intToLocalDate(date);
         assertEquals(expResult, result);
+        System.out.println("done");
 
         //monat und tag falsch
         date = 20042036;
         expResult = LocalDate.of(2004, 20, 36);
         result = TimeUtilPro.intToLocalDate(date);
         assertEquals(expResult, result);
+        System.out.println("done");
 
         //tag falsch
         date = 20040236;
         expResult = LocalDate.of(2004, 02, 36);
         result = TimeUtilPro.intToLocalDate(date);
         assertEquals(expResult, result);
+        System.out.println("done");
 
         //0
         date = 00000000;
         expResult = LocalDate.of(0000, 00, 00);
         result = TimeUtilPro.intToLocalDate(date);
         assertEquals(expResult, result);
+        System.out.println("done");
+
     }
 
     /**
