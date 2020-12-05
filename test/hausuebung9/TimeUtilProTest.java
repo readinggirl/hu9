@@ -387,12 +387,28 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateToInt() {
         System.out.println("localDateToInt");
-        LocalDate date = null;
-        int expResult = 0;
+        LocalDate date = LocalDate.of(2004, 2, 16);
+        int expResult = 20040216;
         int result = TimeUtilPro.localDateToInt(date);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        //monat falsch
+        date = LocalDate.of(2004, -6, 16);
+        expResult = -1;
+        result = TimeUtilPro.localDateToInt(date);
+        assertEquals(expResult, result);
+
+        //tag falsch
+        date = LocalDate.of(2004, 2, 50);
+        expResult = -1;
+        result = TimeUtilPro.localDateToInt(date);
+        assertEquals(expResult, result);
+
+        //monat und tag falsch
+        date = LocalDate.of(2004, -6, 50);
+        expResult = -1;
+        result = TimeUtilPro.localDateToInt(date);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -401,12 +417,28 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateTimeToInt() {
         System.out.println("localDateTimeToInt");
-        LocalDateTime dateTime = null;
-        int expResult = 0;
-        int result = TimeUtilPro.localDateTimeToInt(dateTime);
+        LocalDateTime date = LocalDateTime.of(2004, 2, 16, 15, 30);
+        int expResult = 20040216;
+        int result = TimeUtilPro.localDateTimeToInt(date);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        //monat falsch
+        date = LocalDateTime.of(2004, -6, 16, 15, 30);
+        expResult = -1;
+        result = TimeUtilPro.localDateTimeToInt(date);
+        assertEquals(expResult, result);
+
+        //tag falsch
+        date = LocalDateTime.of(2004, 2, 50, 15, 30);
+        expResult = -1;
+        result = TimeUtilPro.localDateTimeToInt(date);
+        assertEquals(expResult, result);
+
+        //monat und tag falsch
+        date = LocalDateTime.of(2004, -6, 50, 15, 30);
+        expResult = -1;
+        result = TimeUtilPro.localDateTimeToInt(date);
+        assertEquals(expResult, result);
     }
 
     /**

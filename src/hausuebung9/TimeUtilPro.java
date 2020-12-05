@@ -15,6 +15,7 @@ public class TimeUtilPro {
         System.out.println(longToLocalDate(200402161458L));
         System.out.println(dateToLocalDate(new Date(104, 1, 16)));
         System.out.println(calendarToLocalDate(new GregorianCalendar(2004, 1, 16)));
+        System.out.println(localDateToInt(LocalDate.of(2004, 2, 16)));
     }
 
     private TimeUtilPro() {
@@ -118,10 +119,58 @@ public class TimeUtilPro {
 
     // ########## INT METHODS ##########
     public static int localDateToInt(LocalDate date) {
+        String[] val = date.toString().split("-");
+        String res = "";
+        int year = Integer.parseInt(val[0]);
+        int month = Integer.parseInt(val[1]);
+        int day = Integer.parseInt(val[2]);
+
+        if (month < 13 && month > 0 && day > 0 && day < 32) {
+            if ((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
+                if (month == 2 && day < 29) {
+                    for (int i = 0; i < val.length; i++) {
+                        res = res + "" + val[i];
+                    }
+                    return Integer.parseInt(res);
+                }
+                for (int i = 0; i < val.length; i++) {
+                    res = res + "" + val[i];
+                }
+                return Integer.parseInt(res);
+            }
+            for (int i = 0; i < val.length; i++) {
+                res = res + "" + val[i];
+            }
+            return Integer.parseInt(res);
+        }
         return -1;
     }
 
     public static int localDateTimeToInt(LocalDateTime dateTime) {
+        String[] val = dateTime.toString().split("-");
+        String res = "";
+        int year = Integer.parseInt(val[0]);
+        int month = Integer.parseInt(val[1]);
+        int day = Integer.parseInt(val[2]);
+
+        if (month < 13 && month > 0 && day > 0 && day < 32) {
+            if ((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
+                if (month == 2 && day < 29) {
+                    for (int i = 0; i < val.length; i++) {
+                        res = res + "" + val[i];
+                    }
+                    return Integer.parseInt(res);
+                }
+                for (int i = 0; i < val.length; i++) {
+                    res = res + "" + val[i];
+                }
+                return Integer.parseInt(res);
+            }
+            for (int i = 0; i < val.length; i++) {
+                res = res + "" + val[i];
+            }
+            return Integer.parseInt(res);
+        }
         return -1;
     }
 
