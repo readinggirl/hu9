@@ -12,7 +12,7 @@ public class TimeUtilPro {
 
     public static void main(String[] args) {
         System.out.println(intToLocalDate(20040216));
-        System.out.println(longToLocalDate(200402161458L));
+        System.out.println(longToLocalDateTime(200402161458L));
         System.out.println(dateToLocalDate(new Date(104, 1, 16)));
         System.out.println(calendarToLocalDate(new GregorianCalendar(2004, 1, 16)));
         System.out.println(localDateToInt(LocalDate.of(2004, 2, 16)));
@@ -151,7 +151,9 @@ public class TimeUtilPro {
         String res = "";
         int year = Integer.parseInt(val[0]);
         int month = Integer.parseInt(val[1]);
-        int day = Integer.parseInt(val[2]);
+        String[] temp = val[2].split("T");
+        int day = Integer.parseInt(temp[0]);
+        val[2] = temp[0];
 
         if (month < 13 && month > 0 && day > 0 && day < 32) {
             if ((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
@@ -176,10 +178,71 @@ public class TimeUtilPro {
 
     // ########## LONG METHODS ##########
     public static long localDateToLong(LocalDate date) {
+        String[] val = date.toString().split("-");
+        String res = "";
+        int year = Integer.parseInt(val[0]);
+        int month = Integer.parseInt(val[1]);
+        String[] temp = val[2].split("T");
+        int day = Integer.parseInt(temp[0]);
+        String[] tmp = val[1].split(":");
+        int hour = Integer.parseInt(tmp[0]);
+        int minutes = Integer.parseInt(tmp[1]);
+        val[2] = temp[0];
+        val[3] = tmp[0];
+        val[4] = tmp[1];
+
+        if (hour > -1 && hour < 24 && minutes > -1 && minutes < 61) {
+            if (month < 13 && month > 0 && day > 0 && day < 32) {
+                if ((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
+                    if (month == 2 && day < 29) {
+                        for (int i = 0; i < val.length; i++) {
+                            res = res + "" + val[i];
+                        }
+                        return Long.parseLong(res);
+                    }
+                    for (int i = 0; i < val.length; i++) {
+                        res = res + "" + val[i];
+                    }
+                    return Long.parseLong(res);
+                }
+                for (int i = 0; i < val.length; i++) {
+                    res = res + "" + val[i];
+                }
+                return Long.parseLong(res);
+            }
+        }
         return -1L;
     }
 
     public static long localDateTimeToLong(LocalDateTime dateTime) {
+        String[] val = dateTime.toString().split("-");
+        String res = "";
+        int year = Integer.parseInt(val[0]);
+        int month = Integer.parseInt(val[1]);
+        int day = Integer.parseInt(val[2]);
+        int hour = Integer.parseInt(val[3]);
+        int minutes = Integer.parseInt(val[4]);
+
+        if (hour > -1 && hour < 24 && minutes > -1 && minutes < 61) {
+            if (month < 13 && month > 0 && day > 0 && day < 32) {
+                if ((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
+                    if (month == 2 && day < 29) {
+                        for (int i = 0; i < val.length; i++) {
+                            res = res + "" + val[i];
+                        }
+                        return Long.parseLong(res);
+                    }
+                    for (int i = 0; i < val.length; i++) {
+                        res = res + "" + val[i];
+                    }
+                    return Long.parseLong(res);
+                }
+                for (int i = 0; i < val.length; i++) {
+                    res = res + "" + val[i];
+                }
+                return Long.parseLong(res);
+            }
+        }
         return -1L;
     }
 
