@@ -7,6 +7,7 @@ package hausuebung9;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Calendar;
@@ -448,7 +449,7 @@ public class TimeUtilProTest {
     public void testLocalDateToLong() {
         System.out.println("localDateToLong");
         LocalDate date = LocalDate.of(2004, 2, 16).atTime(15, 30).toLocalDate();
-        long expResult = 200402161530L;
+        long expResult = 200402160000L;
         long result = TimeUtilPro.localDateToLong(date);
         assertEquals(expResult, result);
 
@@ -519,12 +520,28 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateToDate() {
         System.out.println("localDateToDate");
-        LocalDate date = null;
-        Date expResult = null;
+        LocalDate date = LocalDate.of(2004, 2, 16);
+        Date expResult = new Date(104, 1, 16);
         Date result = TimeUtilPro.localDateToDate(date);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        //monat falsch
+        date = LocalDate.of(2004, 0, 16);
+        expResult = new Date();
+        result = TimeUtilPro.localDateToDate(date);
+        assertEquals(expResult, result);
+
+        //tag falsch
+        date = LocalDate.of(2004, 2, -10);
+        expResult = new Date();
+        result = TimeUtilPro.localDateToDate(date);
+        assertEquals(expResult, result);
+
+        //monat und tag falsch
+        date = LocalDate.of(2004, 25, -10);
+        expResult = new Date();
+        result = TimeUtilPro.localDateToDate(date);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -533,12 +550,34 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateTimeToDate() {
         System.out.println("localDateTimeToDate");
-        LocalDateTime dateTime = null;
-        Date expResult = null;
-        Date result = TimeUtilPro.localDateTimeToDate(dateTime);
+        LocalDateTime date = LocalDateTime.of(2004, 2, 16, 15, 30);
+        Date expResult = new Date(104, 1, 16, 15, 30);
+        Date result = TimeUtilPro.localDateTimeToDate(date);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        //monat falsch
+        date = LocalDateTime.of(2004, 0, 16, 15, 30);
+        expResult = new Date(2004, 0, 16, 15, 30);
+        result = TimeUtilPro.localDateTimeToDate(date);
+        assertEquals(expResult, result);
+
+        //tag falsch
+        date = LocalDateTime.of(2004, 2, 39, 15, 30);
+        expResult = new Date(2004, 2, 39, 15, 30);
+        result = TimeUtilPro.localDateTimeToDate(date);
+        assertEquals(expResult, result);
+
+        //monat und tag falsch
+        date = LocalDateTime.of(2004, 0, 39, 15, 30);
+        expResult = new Date(2004, 0, 39, 15, 30);
+        result = TimeUtilPro.localDateTimeToDate(date);
+        assertEquals(expResult, result);
+
+        //monat tag stunde und minute falsch
+        date = LocalDateTime.of(2004, 0, 39, 30, 70);
+        expResult = new Date(2004, 0, 39, 30, 70);
+        result = TimeUtilPro.localDateTimeToDate(date);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -547,12 +586,28 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateToCalendar() {
         System.out.println("localDateToCalendar");
-        LocalDate date = null;
-        Calendar expResult = null;
+        LocalDate date = LocalDate.of(2004, 2, 16);
+        Calendar expResult = new GregorianCalendar(2004, 1, 16);
         Calendar result = TimeUtilPro.localDateToCalendar(date);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        //monat falsch
+        date = LocalDate.of(2004, 20, 16);
+        expResult = new GregorianCalendar(2004, 19, 16);
+        result = TimeUtilPro.localDateToCalendar(date);
+        assertEquals(expResult, result);
+
+        //tag falsch
+        date = LocalDate.of(2004, 2, 37);
+        expResult = new GregorianCalendar(2004, 1, 37);
+        result = TimeUtilPro.localDateToCalendar(date);
+        assertEquals(expResult, result);
+
+        //monat und tag falsch
+        date = LocalDate.of(2004, 20, 37);
+        expResult = new GregorianCalendar(2004, 19, 37);
+        result = TimeUtilPro.localDateToCalendar(date);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -561,12 +616,28 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateTimeToCalendar() {
         System.out.println("localDateTimeToCalendar");
-        LocalDateTime dateTime = null;
-        Calendar expResult = null;
+        LocalDateTime dateTime = LocalDateTime.of(2004, 2, 16, 15, 30);
+        Calendar expResult = new GregorianCalendar(2004, 1, 16, 15, 30);
         Calendar result = TimeUtilPro.localDateTimeToCalendar(dateTime);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        //monat und tag falsch
+        dateTime = LocalDateTime.of(2004, 20, 95, 15, 30);
+        expResult = new GregorianCalendar(2004, 19, 95, 15, 30);
+        result = TimeUtilPro.localDateTimeToCalendar(dateTime);
+        assertEquals(expResult, result);
+
+        //monat tag stunde und minute falsch
+        dateTime = LocalDateTime.of(2004, 20, 95, 35, 300);
+        expResult = new GregorianCalendar(2004, 19, 95, 35, 300);
+        result = TimeUtilPro.localDateTimeToCalendar(dateTime);
+        assertEquals(expResult, result);
+
+        //stunde und minute falsch
+        dateTime = LocalDateTime.of(2004, 2, 16, 35, 300);
+        expResult = new GregorianCalendar(2004, 1, 16, 35, 300);
+        result = TimeUtilPro.localDateTimeToCalendar(dateTime);
+        assertEquals(expResult, result);
     }
 
 }

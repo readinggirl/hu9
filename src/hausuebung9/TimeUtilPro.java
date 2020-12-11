@@ -3,6 +3,7 @@ package hausuebung9;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,10 +13,21 @@ public class TimeUtilPro {
 
     public static void main(String[] args) {
         System.out.println(intToLocalDate(20040216));
-        System.out.println(longToLocalDateTime(200402161458L));
-        System.out.println(dateToLocalDate(new Date(104, 1, 16)));
-        System.out.println(calendarToLocalDate(new GregorianCalendar(2004, 1, 16)));
+        System.out.println(longToLocalDate(200402161530L));
+        System.out.println(dateToLocalDate(new Date()));
+        System.out.println(calendarToLocalDate(new GregorianCalendar()));
+        System.out.println(intToLocalDateTime(20040216));
+        System.out.println(longToLocalDateTime(200402161530L));
+        System.out.println(dateToLocalDateTime(new Date()));
+        System.out.println(calendarToLocalDateTime(new GregorianCalendar()));
         System.out.println(localDateToInt(LocalDate.of(2004, 2, 16)));
+        System.out.println(localDateTimeToInt(LocalDateTime.of(2004, 02, 16, 15, 30)));
+        System.out.println(localDateToLong(LocalDate.of(2004, 02, 16)));
+        System.out.println(localDateTimeToLong(LocalDateTime.of(2004, 2, 16, 15, 30)));
+        System.out.println(localDateToDate(LocalDate.of(2004, 02, 16)));
+        System.out.println(localDateTimeToDate(LocalDateTime.of(2004, 2, 16, 15, 30)));
+        System.out.println(localDateToCalendar(LocalDate.of(2004, 2, 16)));
+        System.out.println(localDateTimeToCalendar(LocalDateTime.of(2004, 2, 16, 15, 30)));
     }
 
     private TimeUtilPro() {
@@ -47,7 +59,7 @@ public class TimeUtilPro {
         int hour = Integer.parseInt(datum.substring(8, 10));
         int minutes = Integer.parseInt(datum.substring(10, 12));
 
-        if (hour > -1 && hour < 24 && minutes > -1 && minutes < 61) {
+        if (hour > -1 && hour < 24 && minutes > -1 && minutes < 60) {
             if (month < 13 && month > 0 && day > 0 && day < 32) {
                 if ((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
                     if (month == 2 && day < 29) {
@@ -121,149 +133,65 @@ public class TimeUtilPro {
     public static int localDateToInt(LocalDate date) {
         String[] val = date.toString().split("-");
         String res = "";
-        int year = Integer.parseInt(val[0]);
-        int month = Integer.parseInt(val[1]);
-        int day = Integer.parseInt(val[2]);
-
-        if (month < 13 && month > 0 && day > 0 && day < 32) {
-            if ((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
-                if (month == 2 && day < 29) {
-                    for (int i = 0; i < val.length; i++) {
-                        res = res + "" + val[i];
-                    }
-                    return Integer.parseInt(res);
-                }
-                for (int i = 0; i < val.length; i++) {
-                    res = res + "" + val[i];
-                }
-                return Integer.parseInt(res);
-            }
-            for (int i = 0; i < val.length; i++) {
-                res = res + "" + val[i];
-            }
-            return Integer.parseInt(res);
+        for (int i = 0; i < val.length; i++) {
+            res = res + val[i];
         }
-        return -1;
+        return Integer.parseInt(res);
     }
 
     public static int localDateTimeToInt(LocalDateTime dateTime) {
         String[] val = dateTime.toString().split("-");
         String res = "";
-        int year = Integer.parseInt(val[0]);
-        int month = Integer.parseInt(val[1]);
         String[] temp = val[2].split("T");
-        int day = Integer.parseInt(temp[0]);
         val[2] = temp[0];
-
-        if (month < 13 && month > 0 && day > 0 && day < 32) {
-            if ((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
-                if (month == 2 && day < 29) {
-                    for (int i = 0; i < val.length; i++) {
-                        res = res + "" + val[i];
-                    }
-                    return Integer.parseInt(res);
-                }
-                for (int i = 0; i < val.length; i++) {
-                    res = res + "" + val[i];
-                }
-                return Integer.parseInt(res);
-            }
-            for (int i = 0; i < val.length; i++) {
-                res = res + "" + val[i];
-            }
-            return Integer.parseInt(res);
+        for (int i = 0; i < val.length; i++) {
+            res = res + val[i];
         }
-        return -1;
+        return Integer.parseInt(res);
     }
 
     // ########## LONG METHODS ##########
     public static long localDateToLong(LocalDate date) {
         String[] val = date.toString().split("-");
         String res = "";
-        int year = Integer.parseInt(val[0]);
-        int month = Integer.parseInt(val[1]);
         String[] temp = val[2].split("T");
-        int day = Integer.parseInt(temp[0]);
-        String[] tmp = val[1].split(":");
-        int hour = Integer.parseInt(tmp[0]);
-        int minutes = Integer.parseInt(tmp[1]);
         val[2] = temp[0];
-        val[3] = tmp[0];
-        val[4] = tmp[1];
-
-        if (hour > -1 && hour < 24 && minutes > -1 && minutes < 61) {
-            if (month < 13 && month > 0 && day > 0 && day < 32) {
-                if ((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
-                    if (month == 2 && day < 29) {
-                        for (int i = 0; i < val.length; i++) {
-                            res = res + "" + val[i];
-                        }
-                        return Long.parseLong(res);
-                    }
-                    for (int i = 0; i < val.length; i++) {
-                        res = res + "" + val[i];
-                    }
-                    return Long.parseLong(res);
-                }
-                for (int i = 0; i < val.length; i++) {
-                    res = res + "" + val[i];
-                }
-                return Long.parseLong(res);
-            }
+        for (int i = 0; i < val.length; i++) {
+            res = res + val[i];
         }
-        return -1L;
+        return Long.parseLong(res + "0000");
     }
 
     public static long localDateTimeToLong(LocalDateTime dateTime) {
         String[] val = dateTime.toString().split("-");
         String res = "";
-        int year = Integer.parseInt(val[0]);
-        int month = Integer.parseInt(val[1]);
-        int day = Integer.parseInt(val[2]);
-        int hour = Integer.parseInt(val[3]);
-        int minutes = Integer.parseInt(val[4]);
-
-        if (hour > -1 && hour < 24 && minutes > -1 && minutes < 61) {
-            if (month < 13 && month > 0 && day > 0 && day < 32) {
-                if ((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && day < 31) {
-                    if (month == 2 && day < 29) {
-                        for (int i = 0; i < val.length; i++) {
-                            res = res + "" + val[i];
-                        }
-                        return Long.parseLong(res);
-                    }
-                    for (int i = 0; i < val.length; i++) {
-                        res = res + "" + val[i];
-                    }
-                    return Long.parseLong(res);
-                }
-                for (int i = 0; i < val.length; i++) {
-                    res = res + "" + val[i];
-                }
-                return Long.parseLong(res);
-            }
+        String[] temp = val[2].split("T");
+        val[2] = temp[0];
+        String[] time = temp[1].split(":");
+        for (int i = 0; i < val.length; i++) {
+            res = res + val[i];
         }
-        return -1L;
+        return Long.parseLong(res + time[0] + time[1]);
     }
 
     // ########## DATE METHODS ##########
     @SuppressWarnings("deprecation")
     public static Date localDateToDate(LocalDate date) {
-        return null;
+        return new Date(date.getYear() - 1900, date.getMonthValue() - 1, date.getDayOfMonth());
     }
 
     @SuppressWarnings("deprecation")
     public static Date localDateTimeToDate(LocalDateTime dateTime) {
-        return null;
+        return new Date(dateTime.getYear() - 1900, dateTime.getMonthValue() - 1, dateTime.getDayOfMonth(), dateTime.getHour(), dateTime.getMinute());
     }
 
     // ########## CALENDAR METHODS ##########
     public static Calendar localDateToCalendar(LocalDate date) {
-        return null;
+        return new GregorianCalendar(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
     }
 
     public static Calendar localDateTimeToCalendar(LocalDateTime dateTime) {
-        return null;
+        return new GregorianCalendar(dateTime.getYear(), dateTime.getMonthValue() - 1, dateTime.getDayOfMonth(), dateTime.getHour(), dateTime.getMinute());
     }
 
 }
